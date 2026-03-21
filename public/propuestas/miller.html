@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Brief — AXIONA SEGUROS · Miller</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c:#2BCBCA;
+  --c-soft:rgba(43,203,202,.12);
+  --c-border:rgba(43,203,202,.18);
+  --navy:#1C3D6E;
+  --navy-soft:rgba(28,61,110,.25);
+  --bg:#07080F;
+  --s1:#0C0E1C;
+  --s2:#111425;
+  --s3:#181D30;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.09);
+  --tp:#EDF0FF;
+  --ts:#7B84AA;
+  --tm:#3D4566;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tp);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── SCROLL PROGRESS ── */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:1000}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--c),#6EE8E7);width:0%;transition:width .1s linear}
+
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 15% 55%,rgba(28,61,110,.4) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 88% 75%,rgba(43,203,202,.06) 0%,transparent 55%)}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(43,203,202,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(43,203,202,.02) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 70% at 15% 50%,black 0%,transparent 70%)}
+.cover-top{position:relative;display:flex;justify-content:space-between;align-items:flex-start}
+.cover-logo{display:flex;align-items:center;gap:12px}
+.cover-logo svg{width:36px;height:36px}
+.cover-logo-name{font-size:18px;font-weight:800;letter-spacing:-.5px}
+.cover-logo-name em{color:var(--c);font-style:normal}
+.cover-meta{font-family:var(--mono);font-size:11px;color:var(--tm);letter-spacing:1.5px;text-align:right;line-height:2.2}
+.cover-meta span{color:var(--ts)}
+.cover-mid{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;padding:72px 0}
+.cover-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--tm);margin-bottom:12px}
+.cover-for{font-size:clamp(64px,9vw,120px);font-weight:900;letter-spacing:-5px;line-height:.88;margin-bottom:20px;color:var(--tp)}
+.cover-subtitle{font-size:clamp(18px,2.2vw,26px);font-weight:300;color:var(--ts);letter-spacing:-0.5px;margin-bottom:36px}
+.cover-product-badge{display:inline-flex;align-items:center;gap:12px;padding:12px 20px 12px 14px;background:rgba(43,203,202,.06);border:1px solid rgba(43,203,202,.18);border-radius:14px;margin-bottom:40px;width:fit-content}
+.cpb-dot{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px rgba(43,203,202,.2);animation:cpb 2s infinite}
+@keyframes cpb{0%,100%{box-shadow:0 0 0 3px rgba(43,203,202,.2)}50%{box-shadow:0 0 0 6px rgba(43,203,202,0)}}
+.cpb-text{font-size:14px;font-weight:700;letter-spacing:-.2px}
+.cpb-text em{color:var(--c);font-style:normal}
+.cpb-sub{font-size:11px;font-family:var(--mono);color:var(--tm);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.cover-tagline{font-size:16px;color:var(--ts);max-width:580px;line-height:1.85;font-style:italic}
+.cover-tagline strong{color:var(--tp);font-style:normal;font-weight:600}
+.cover-bottom{position:relative;display:flex;justify-content:space-between;align-items:flex-end;padding-top:36px;border-top:1px solid var(--border)}
+.cover-contact div{font-size:13px;color:var(--ts);line-height:2.1}
+.cover-contact strong{color:var(--tp);font-weight:600}
+.cover-conf{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:right;line-height:2}
+
+/* ── LAYOUT ── */
+.doc{max-width:1100px;margin:0 auto}
+.section{padding:80px 72px;border-bottom:1px solid var(--border)}
+.section-last{padding:80px 72px}
+.label{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--c);margin-bottom:16px}
+.label-gray{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tm);margin-bottom:16px}
+.section-h{font-size:clamp(28px,3.5vw,48px);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:20px}
+.section-sub{font-size:16px;color:var(--ts);line-height:1.8;max-width:680px}
+.divider{height:1px;background:var(--border);margin:40px 0}
+
+/* ── FOUNDER NOTE ── */
+.founder-note{background:linear-gradient(120deg,rgba(28,61,110,.35) 0%,rgba(43,203,202,.05) 100%);border:1px solid rgba(43,203,202,.18);border-radius:20px;padding:40px 48px;margin-top:40px;position:relative;overflow:hidden}
+.founder-note::before{content:'"';position:absolute;top:-20px;left:32px;font-size:160px;color:rgba(43,203,202,.06);font-weight:900;line-height:1;pointer-events:none}
+.fn-label{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--c);margin-bottom:16px}
+.fn-text{font-size:17px;color:var(--tp);line-height:1.85;max-width:760px}
+.fn-text em{color:var(--c);font-style:normal;font-weight:600}
+.fn-sign{margin-top:20px;font-size:13px;color:var(--ts);font-family:var(--mono);letter-spacing:.5px}
+
+/* ── EXEC SUMMARY ── */
+.exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.exec-card{background:var(--s1);padding:36px;transition:background .2s}
+.exec-card:hover{background:var(--s2)}
+.exec-card-label{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:12px}
+.exec-card-val{font-size:32px;font-weight:900;letter-spacing:-1.5px;color:var(--c);line-height:1;margin-bottom:6px}
+.exec-card-title{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px;color:var(--tp)}
+.exec-card-text{font-size:13px;color:var(--ts);line-height:1.75}
+.exec-card.h{background:linear-gradient(135deg,rgba(28,61,110,.45) 0%,rgba(43,203,202,.06) 100%);border-bottom:2px solid rgba(43,203,202,.3)}
+.exec-card.h .exec-card-title{color:var(--c)}
+
+/* ── PAIN ── */
+.pain-list{display:flex;flex-direction:column;gap:2px;margin-top:40px;border-radius:20px;overflow:hidden;background:var(--border)}
+.pain-item{display:grid;grid-template-columns:44px 1fr auto;align-items:start;gap:20px;padding:28px 32px;background:var(--s1);transition:background .2s;position:relative}
+.pain-item:hover{background:var(--s2)}
+.pain-item::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .2s}
+.pain-item:hover::after{background:var(--c)}
+.pain-n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--c);opacity:.45;margin-top:3px}
+.pain-body{}
+.pain-title{font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.pain-desc{font-size:13px;color:var(--ts);line-height:1.65}
+.pain-cost{font-family:var(--mono);font-size:11px;color:var(--c);margin-top:6px;letter-spacing:.3px}
+.impact{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:6px;white-space:nowrap;margin-top:3px}
+.impact-high{background:rgba(255,75,75,.07);color:#FF7070;border:1px solid rgba(255,75,75,.15)}
+.impact-med{background:rgba(255,200,50,.06);color:#F5C842;border:1px solid rgba(255,200,50,.12)}
+
+/* ── PRODUCT HERO (AXIONA SEGUROS) ── */
+.product-hero{margin-top:48px;background:linear-gradient(135deg,rgba(28,61,110,.5) 0%,rgba(43,203,202,.07) 60%,rgba(7,8,15,0) 100%);border:1px solid rgba(43,203,202,.2);border-radius:24px;padding:56px 56px 48px;position:relative;overflow:hidden}
+.ph-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 90% 50%,rgba(43,203,202,.05) 0%,transparent 60%)}
+.ph-label{position:relative;font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--c);margin-bottom:16px}
+.ph-name{position:relative;font-size:clamp(36px,4.5vw,60px);font-weight:900;letter-spacing:-2.5px;line-height:1;margin-bottom:12px}
+.ph-tagline{position:relative;font-size:18px;color:var(--c);font-weight:600;letter-spacing:-.3px;margin-bottom:20px}
+.ph-desc{position:relative;font-size:15px;color:var(--ts);line-height:1.85;max-width:640px;margin-bottom:32px}
+.ph-badges{position:relative;display:flex;gap:10px;flex-wrap:wrap}
+.ph-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:9px;font-size:12px;font-weight:600;color:var(--ts)}
+.ph-badge.on{background:var(--c-soft);border-color:var(--c-border);color:var(--c)}
+.ph-badge::before{content:'●';font-size:7px}
+.ph-badge.on::before{color:var(--c)}
+
+/* ── MODULES ── */
+.modules{display:flex;flex-direction:column;gap:16px;margin-top:40px}
+.module{background:var(--s1);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:border-color .25s}
+.module:hover{border-color:rgba(43,203,202,.15)}
+.module-header{display:flex;align-items:center;gap:16px;padding:28px 36px;cursor:pointer;user-select:none}
+.m-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.m-ico.intel{background:var(--c-soft)}
+.m-ico.opera{background:rgba(108,155,220,.1)}
+.m-tag{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:3px}
+.m-name{font-size:17px;font-weight:700;letter-spacing:-.4px}
+.m-pill{margin-left:auto;font-family:var(--mono);font-size:10px;padding:4px 12px;border-radius:100px;font-weight:600;letter-spacing:.5px}
+.m-pill.intel{background:var(--c-soft);color:var(--c);border:1px solid var(--c-border)}
+.m-pill.opera{background:rgba(108,155,220,.08);color:#6C9BDC;border:1px solid rgba(108,155,220,.18)}
+.module-body{border-top:1px solid var(--border);padding:0}
+.feat-list{display:flex;flex-direction:column;gap:0}
+.feat-item{display:grid;grid-template-columns:56px 1fr auto;align-items:start;gap:16px;padding:22px 36px;border-bottom:1px solid var(--border);transition:background .15s}
+.feat-item:last-child{border-bottom:none}
+.feat-item:hover{background:rgba(255,255,255,.015)}
+.fi-num{font-family:var(--mono);font-size:11px;color:var(--tm);margin-top:3px;letter-spacing:.5px}
+.fi-body{}
+.fi-title{font-size:14px;font-weight:700;letter-spacing:-.2px;margin-bottom:5px}
+.fi-desc{font-size:13px;color:var(--ts);line-height:1.65}
+.fi-tech{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.tech-tag{font-family:var(--mono);font-size:10px;padding:3px 8px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:5px;color:var(--tm);letter-spacing:.3px}
+.fi-phase{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:6px;white-space:nowrap;margin-top:3px;align-self:flex-start}
+.fi-phase.f{background:rgba(43,203,202,.07);color:var(--c);border:1px solid var(--c-border)}
+.fi-phase.l{background:rgba(108,155,220,.07);color:#6C9BDC;border:1px solid rgba(108,155,220,.18)}
+.fi-phase.c{background:rgba(180,100,255,.07);color:#B46CFF;border:1px solid rgba(180,100,255,.18)}
+
+/* ── OUT OF SCOPE ── */
+.out-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:24px}
+.out-item{background:var(--s1);padding:24px 28px;font-size:13px;color:var(--tm);display:flex;align-items:flex-start;gap:10px;line-height:1.6}
+.out-item::before{content:'✕';color:rgba(255,100,100,.25);font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* ── TIMELINE ── */
+.timeline{margin-top:40px;display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:20px;overflow:hidden}
+.tl-item{display:grid;grid-template-columns:148px 1fr;background:var(--s1);transition:background .2s}
+.tl-item:hover{background:var(--s2)}
+.tl-left{padding:28px 24px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.tl-phase{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:5px}
+.tl-weeks{font-size:20px;font-weight:900;letter-spacing:-1px;color:var(--c);line-height:1}
+.tl-weeks-label{font-size:11px;color:var(--ts);margin-top:3px}
+.tl-right{padding:28px 36px;display:flex;align-items:flex-start;gap:16px}
+.tl-num{width:32px;height:32px;border-radius:9px;background:var(--c-soft);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);flex-shrink:0;margin-top:2px}
+.tl-content{}
+.tl-title{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.tl-text{font-size:13px;color:var(--ts);line-height:1.7}
+.tl-milestones{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.milestone{font-family:var(--mono);font-size:10px;padding:3px 9px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:5px;color:var(--ts);letter-spacing:.3px}
+.tl-item.ongoing{background:linear-gradient(90deg,rgba(43,203,202,.04) 0%,transparent 100%)}
+
+/* ── PRICING ── */
+.pricing-wrap{margin-top:40px;display:flex;flex-direction:column;gap:16px}
+.price-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.price-card.featured{border-color:rgba(43,203,202,.25);background:linear-gradient(135deg,rgba(28,61,110,.4) 0%,rgba(43,203,202,.05) 100%)}
+.pc-header{padding:32px 40px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start}
+.pc-name{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:8px}
+.pc-title{font-size:20px;font-weight:700;letter-spacing:-.4px}
+.pc-price-wrap{text-align:right}
+.pc-label{font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--tm);margin-bottom:6px}
+.pc-price{font-size:40px;font-weight:900;letter-spacing:-2px;color:var(--tp);line-height:1}
+.pc-price.placeholder{color:var(--c);font-size:28px;letter-spacing:-1px}
+.pc-period{font-size:12px;color:var(--ts);margin-top:4px}
+.pc-body{padding:28px 40px;display:flex;flex-direction:column;gap:10px}
+.pc-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--ts);line-height:1.55}
+.pc-item::before{content:'→';color:var(--c);font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.pc-item strong{color:var(--tp);font-weight:600}
+.pricing-note{margin-top:16px;padding:20px 28px;background:rgba(43,203,202,.04);border:1px solid var(--c-border);border-radius:12px;font-size:13px;color:var(--ts);line-height:1.75}
+.pricing-note strong{color:var(--c);font-weight:600}
+.price-placeholder-note{display:flex;align-items:center;gap:10px;padding:14px 20px;background:rgba(255,200,50,.05);border:1px solid rgba(255,200,50,.15);border-radius:10px;font-size:12px;color:#F5C842;font-family:var(--mono);letter-spacing:.5px;margin-top:8px}
+
+/* ── ROI ── */
+.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.roi-card{background:var(--s1);padding:36px 32px;transition:background .2s}
+.roi-card:hover{background:var(--s2)}
+.roi-val{font-size:40px;font-weight:900;letter-spacing:-2px;color:var(--c);line-height:1;margin-bottom:6px}
+.roi-label{font-size:14px;font-weight:700;letter-spacing:-.2px;margin-bottom:8px}
+.roi-text{font-size:12px;color:var(--ts);line-height:1.65}
+
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.why-card{background:var(--s1);padding:36px;transition:background .2s}
+.why-card:hover{background:var(--s2)}
+.wc-icon{font-size:28px;margin-bottom:16px}
+.wc-title{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
+.wc-text{font-size:13px;color:var(--ts);line-height:1.7}
+
+/* ── NEXT STEPS ── */
+.next-steps{display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.ns-item{display:flex;align-items:flex-start;gap:20px;padding:28px 36px;background:var(--s1);transition:background .2s}
+.ns-item:hover{background:var(--s2)}
+.ns-num{width:36px;height:36px;border-radius:10px;background:var(--c-soft);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--c);flex-shrink:0}
+.ns-title{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px}
+.ns-desc{font-size:13px;color:var(--ts);line-height:1.65}
+.ns-date{font-family:var(--mono);font-size:11px;color:var(--c);margin-top:6px;letter-spacing:.5px}
+
+/* ── CLOSING ── */
+.closing{min-height:55vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 72px;position:relative;overflow:hidden}
+.closing-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 70%,rgba(43,203,202,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 60% at 50% 30%,rgba(28,61,110,.2) 0%,transparent 55%)}
+.closing-tag{position:relative;display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 10px;background:var(--c-soft);border:1px solid var(--c-border);border-radius:100px;font-size:11px;font-weight:700;color:var(--c);font-family:var(--mono);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+.cdot{width:7px;height:7px;border-radius:50%;background:var(--c);animation:cpb 2s infinite}
+.closing-h{position:relative;font-size:clamp(44px,6vw,80px);font-weight:900;letter-spacing:-3.5px;line-height:.95;margin-bottom:20px}
+.closing-h em{background:linear-gradient(120deg,#2BCBCA,#6EE8E7,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.closing-sub{position:relative;font-size:17px;color:var(--ts);max-width:520px;margin:0 auto 48px;line-height:1.8}
+.btn-close{position:relative;display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:var(--c);color:#07080F;border-radius:14px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;letter-spacing:-.2px}
+.btn-close:hover{background:#5DDBD9;transform:translateY(-2px);box-shadow:0 20px 56px rgba(43,203,202,.28)}
+.closing-contact{position:relative;margin-top:24px;font-family:var(--mono);font-size:12px;color:var(--tm);letter-spacing:.5px}
+
+/* ── FOOTER ── */
+.doc-footer{padding:32px 72px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.df-logo{font-size:15px;font-weight:800;letter-spacing:-.4px}
+.df-logo em{color:var(--c);font-style:normal}
+.df-meta{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:center;line-height:1.8}
+.df-conf{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:right;line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="progress-bar" id="pb"></div></div>
+
+<!-- ═══════ PORTADA ═══════ -->
+<div class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+
+  <div class="cover-top">
+    <div class="cover-logo">
+      <svg viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="92" stroke="#2BCBCA" stroke-width="8"/>
+        <path d="M56 150L88 58L102 92L72 150Z" fill="#1C3D6E"/>
+        <path d="M144 150L112 58L98 92L128 150Z" fill="#2BCBCA"/>
+        <path d="M100 92L88 58L112 58Z" fill="#153260" opacity=".9"/>
+      </svg>
+      <span class="cover-logo-name">Axiona <em>·</em> AI &amp; Analytics</span>
+    </div>
+    <div class="cover-meta">
+      <div>VISION BRIEF · CO-CREACIÓN</div>
+      <div>Ref: AX-2026-001</div>
+      <div>18 de Marzo de 2026</div>
+      <div>Sesión de validación: <span>Por agendar</span></div>
+    </div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="cover-eyebrow">Preparada exclusivamente para</div>
+    <h1 class="cover-for">Miller</h1>
+    <div class="cover-subtitle">Miller · Asesor independiente de seguros · Colombia</div>
+    <div class="cover-product-badge">
+      <div class="cpb-dot"></div>
+      <div>
+        <div class="cpb-text"><em>AXIONA SEGUROS</em> — Solución Integral</div>
+        <div class="cpb-sub">INTELIGENCIA + OPERA · Sesión de co-creación</div>
+      </div>
+    </div>
+    <div class="cover-tagline">"Construimos la infraestructura operativa e inteligente que necesita un asesor de seguros moderno para <strong>vender más, operar mejor y crecer sin fricciones.</strong>"</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-contact">
+      <div><strong>Elaborado por</strong> Julian Tellez · Co-founder &amp; CTO &nbsp;·&nbsp; Christian Noguera Peña · Co-founder &amp; CFO</div>
+      <div><strong>Contacto</strong> ventas@axiona-tech.com</div>
+    </div>
+    <div class="cover-conf">
+      <div>DOCUMENTO CONFIDENCIAL</div>
+      <div>Solo para uso del destinatario</div>
+      <div>© 2026 Axiona · Todos los derechos reservados</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc">
+
+<!-- ═══════ 01 · RESUMEN EJECUTIVO ═══════ -->
+<section class="section">
+  <div class="label">01 — Resumen Ejecutivo</div>
+  <h2 class="section-h">El diagnóstico es claro.<br>La oportunidad también.</h2>
+  <p class="section-sub">Basados en el levantamiento de requerimientos realizado el 6 de marzo de 2026 por Christian Noguera Peña (Co-founder &amp; CFO, Axiona), identificamos una oportunidad concreta y medible: liberar entre 4 y 8 horas diarias de operación manual, eliminando la fricción que hoy frena el crecimiento de Miller.</p>
+
+  <div class="exec-grid">
+    <div class="exec-card h">
+      <div class="exec-card-label">El desafío central</div>
+      <div class="exec-card-title">El asesor opera como back-office y como vendedor al mismo tiempo.</div>
+      <div class="exec-card-text">Cobros, cotizaciones, respuestas a clientes, gestión de leads y producción de contenido recaen sobre la misma persona. El resultado: tiempo fragmentado, oportunidades perdidas y un techo de crecimiento claro antes de contratar a alguien más.</div>
+    </div>
+    <div class="exec-card h">
+      <div class="exec-card-label">Nuestra propuesta</div>
+      <div class="exec-card-title">AXIONA SEGUROS — Infraestructura operativa e inteligente para asesores.</div>
+      <div class="exec-card-text">Un agente de IA + automatizaciones operativas + dashboards de desempeño, construidos específicamente para la realidad de un asesor de seguros en Colombia. Miller es el cliente fundacional que co-crea este producto.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Ahorro inmediato</div>
+      <div class="exec-card-val">COP $2M</div>
+      <div class="exec-card-text">Valor mensual del auxiliar comercial que Miller planea contratar. Con AXIONA SEGUROS, ese trabajo lo hace el sistema — sin nómina, sin errores, disponible 24/7.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Tiempo liberado</div>
+      <div class="exec-card-val">4–8 h/día</div>
+      <div class="exec-card-text">Horas diarias que hoy se consumen en tareas repetitivas (cobros, cotizaciones, respuestas). Ese tiempo se redirige al cierre de ventas y al crecimiento del portafolio.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Tiempo al mercado</div>
+      <div class="exec-card-val">10 sem</div>
+      <div class="exec-card-text">De kickoff a primera versión operativa en producción. Dentro del objetivo de 3 meses declarado por el cliente en el levantamiento.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Valor estratégico</div>
+      <div class="exec-card-val">1 → N</div>
+      <div class="exec-card-text">El producto construido para Miller puede replicarse a otros asesores de seguros en Colombia. Miller se convierte en cliente fundacional con beneficios exclusivos.</div>
+    </div>
+  </div>
+
+  <div class="founder-note">
+    <div class="fn-label">Por qué esto es diferente</div>
+    <div class="fn-text">No estamos proponiendo una herramienta genérica. Estamos co-construyendo contigo un <em>producto vertical</em> para la operación de asesores de seguros: con tus flujos reales, tus herramientas (SURA, WhatsApp, Excel), y tus casuísticas específicas de cobros, cotizaciones y leads. El resultado no solo mejora tu operación hoy — se convierte en un activo replicable para el mercado de asesores en Colombia.</div>
+    <div class="fn-sign">— Equipo Axiona · Axiona-tech.com</div>
+  </div>
+</section>
+
+<!-- ═══════ 02 · DIAGNÓSTICO ═══════ -->
+<section class="section">
+  <div class="label">02 — Diagnóstico</div>
+  <h2 class="section-h">Lo que encontramos<br>en el levantamiento.</h2>
+  <p class="section-sub">Seis fricciones identificadas. Todas tienen solución dentro de AXIONA SEGUROS. Priorizadas por impacto en la operación diaria y en la capacidad de venta.</p>
+
+  <div class="pain-list">
+    <div class="pain-item">
+      <div class="pain-n">01</div>
+      <div class="pain-body">
+        <div class="pain-title">Gestión de cobros: completamente manual</div>
+        <div class="pain-desc">Cada semana, revisar el Excel exportado de SURA, identificar clientes con más de 20 días en mora y hacer las llamadas o mensajes uno por uno. Aproximadamente 1 hora diaria de trabajo que no genera venta nueva, solo retención reactiva.</div>
+        <div class="pain-cost">→ ~1h/día dedicada a cobros manuales</div>
+      </div>
+      <div class="impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">02</div>
+      <div class="pain-body">
+        <div class="pain-title">Cotización: ida y vuelta manual por WhatsApp</div>
+        <div class="pain-desc">Llega un cliente por WhatsApp buscando una póliza. El asesor saluda, pregunta, espera, recibe datos incompletos, vuelve a preguntar, cotiza en SURA y responde. Un proceso que puede tomar 30–60 min por cliente y que se repite múltiples veces al día.</div>
+        <div class="pain-cost">→ Hasta 60 min por cotización · múltiples simultáneas</div>
+      </div>
+      <div class="impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">03</div>
+      <div class="pain-body">
+        <div class="pain-title">Atención al cliente: sin respuestas automáticas</div>
+        <div class="pain-desc">Ayudas de servicio, preguntas frecuentes, dudas sobre coberturas, confirmaciones de pago: todas llegan al WhatsApp del asesor y requieren respuesta manual. Sin disponibilidad 24/7, sin priorización, sin historial estructurado.</div>
+        <div class="pain-cost">→ Interrupciones constantes durante el día operativo</div>
+      </div>
+      <div class="impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">04</div>
+      <div class="pain-body">
+        <div class="pain-title">Gestión de leads: sin cualificación ni pipeline estructurado</div>
+        <div class="pain-desc">Los leads que llegan por pauta digital son abordados manualmente por el asesor. No hay criterio automático de cualificación, no hay un pipeline visible, no hay seguimiento sistematizado. Los leads fríos se enfrían más. Los calientes esperan.</div>
+        <div class="pain-cost">→ Oportunidades perdidas por tiempo de respuesta y falta de seguimiento</div>
+      </div>
+      <div class="impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">05</div>
+      <div class="pain-body">
+        <div class="pain-title">Redes sociales: sin data para tomar decisiones</div>
+        <div class="pain-desc">Se trabaja con un community manager externo, pero no hay datos propios del negocio que alimenten la estrategia de contenido. El asesor no sabe qué tipo de cliente convierte más, qué póliza genera más consultas, ni qué perfil responde mejor a la pauta.</div>
+        <div class="pain-cost">→ Inversión en pauta sin retroalimentación del negocio real</div>
+      </div>
+      <div class="impact impact-med">Impacto medio</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">06</div>
+      <div class="pain-body">
+        <div class="pain-title">Visibilidad del negocio: cero reportes, cero dashboards</div>
+        <div class="pain-desc">No hay informes formales sobre el estado de la cartera, el embudo de ventas, la conversión de leads, ni el rendimiento de las automatizaciones. Las decisiones se toman por intuición o por lo que SURA muestra de forma aislada.</div>
+        <div class="pain-cost">→ Gestión reactiva sin visibilidad del desempeño real del negocio</div>
+      </div>
+      <div class="impact impact-high">Alto impacto</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 03 · SOLUCIÓN ═══════ -->
+<section class="section">
+  <div class="label">03 — La solución</div>
+  <h2 class="section-h">AXIONA SEGUROS</h2>
+
+  <div class="product-hero">
+    <div class="ph-bg"></div>
+    <div class="ph-label">Nuevo producto vertical · Diseño fundacional</div>
+    <div class="ph-name">Infraestructura operativa<br>para asesores de seguros.</div>
+    <div class="ph-tagline">Construida sobre los flujos reales de Miller. Escalable a cualquier asesor.</div>
+    <p class="ph-desc">AXIONA SEGUROS es una plataforma propia del asesor. Ahí viven sus productos, sus coberturas, su cartera y sus leads. Desde esa base, el agente de WhatsApp sabe qué responder, los cobros salen solos y el dashboard muestra todo en tiempo real. El asesor controla su información — nosotros hacemos que trabaje para él.</p>
+    <div class="ph-badges">
+      <div class="ph-badge on">Tu propia plataforma</div>
+      <div class="ph-badge on">Base de conocimiento que tú controlas</div>
+      <div class="ph-badge on">Agente WhatsApp (Meta API)</div>
+      <div class="ph-badge on">Gestión de cobros automática</div>
+      <div class="ph-badge on">Cotización asistida por IA</div>
+      <div class="ph-badge on">Cualificación de leads</div>
+      <div class="ph-badge on">Dashboard de desempeño</div>
+    </div>
+  </div>
+
+  <!-- MÓDULO OPERA -->
+  <div class="modules">
+    <div class="module">
+      <div class="module-header">
+        <div class="m-ico opera">⚙️</div>
+        <div>
+          <div class="m-tag">AXIONA OPERA</div>
+          <div class="m-name">Automatización Operativa</div>
+        </div>
+        <div class="m-pill opera">5 módulos</div>
+      </div>
+      <div class="module-body">
+        <div class="feat-list">
+
+          <div class="feat-item">
+            <div class="fi-num">OPERA · 00</div>
+            <div class="fi-body">
+              <div class="fi-title">Tu plataforma central — Base de conocimiento y cartera</div>
+              <div class="fi-desc">Todo vive aquí. El asesor carga sus productos de seguros (por aseguradora: coberturas, precios, exclusiones, condiciones) y su cartera de clientes. Esta base es lo que alimenta al agente: sabe qué responder porque el asesor le enseñó. Si cambias un precio o agregas una aseguradora, el agente lo sabe al instante. La cartera se actualiza subiendo el archivo que ya exportas hoy — sin pasos nuevos. Tú controlas tu información; nosotros la hacemos funcionar.</div>
+              <div class="fi-tech"><span class="tech-tag">Plataforma web propia</span><span class="tech-tag">Base de conocimiento del asesor</span><span class="tech-tag">Carga de cartera (Excel / manual)</span></div>
+            </div>
+            <div class="fi-phase f">Foundation</div>
+          </div>
+
+          <div class="feat-item">
+            <div class="fi-num">OPERA · 01</div>
+            <div class="fi-body">
+              <div class="fi-title">Agente de Atención WhatsApp (Meta API)</div>
+              <div class="fi-desc">Un agente de IA conectado a WhatsApp Business vía API oficial de Meta que actúa como primer punto de contacto: responde preguntas frecuentes sobre coberturas, confirma estados de pago, envía recordatorios y enruta conversaciones complejas al asesor. Disponible 24/7, en lenguaje natural. Sabe lo que sabe porque tú le cargaste tu base de conocimiento — no depende de ninguna plataforma externa.</div>
+              <div class="fi-tech"><span class="tech-tag">Meta WhatsApp API</span><span class="tech-tag">IA conversacional</span><span class="tech-tag">Tu base de conocimiento</span></div>
+            </div>
+            <div class="fi-phase f">Foundation</div>
+          </div>
+
+          <div class="feat-item">
+            <div class="fi-num">OPERA · 02</div>
+            <div class="fi-body">
+              <div class="fi-title">Automatización de Cobros y Cartera</div>
+              <div class="fi-desc">La cartera vive en la plataforma. El asesor la actualiza subiendo el archivo que ya exporta hoy de donde sea — sin pasos nuevos. El sistema identifica automáticamente quién tiene mora mayor a 20 días y envía el mensaje de cobro personalizado por WhatsApp: nombre del cliente, monto y link de pago. Solo escala al asesor si no hay respuesta en 48h. Cero revisión manual de planillas.</div>
+              <div class="fi-tech"><span class="tech-tag">Cartera en la plataforma</span><span class="tech-tag">WhatsApp API</span><span class="tech-tag">Automatización de flujos</span></div>
+            </div>
+            <div class="fi-phase f">Foundation</div>
+          </div>
+
+          <div class="feat-item">
+            <div class="fi-num">OPERA · 03</div>
+            <div class="fi-body">
+              <div class="fi-title">Flujo de Cotización Asistida</div>
+              <div class="fi-desc">Cuando un cliente escribe por WhatsApp buscando cotizar una póliza, el agente conduce una conversación estructurada para recolectar todos los datos necesarios (beneficiarios, estado de salud, tipo de cobertura, documentos SARLAFT). El asesor recibe un brief completo listo para cotizar — sin ida y vuelta, sin datos incompletos, sin tiempo perdido. El cotizador lo sigue usando el asesor; nosotros le llegamos la tarea hecha.</div>
+              <div class="fi-tech"><span class="tech-tag">WhatsApp API</span><span class="tech-tag">Conversación estructurada por IA</span><span class="tech-tag">Brief listo para cotizar</span></div>
+            </div>
+            <div class="fi-phase l">Launch</div>
+          </div>
+
+          <div class="feat-item">
+            <div class="fi-num">OPERA · 04</div>
+            <div class="fi-body">
+              <div class="fi-title">Cualificación y Seguimiento de Leads</div>
+              <div class="fi-desc">Los leads que llegan por pauta digital son recibidos automáticamente, cualificados por el agente (¿tiene seguro actual?, ¿para quién es?, ¿qué tipo de cobertura necesita?) y registrados en un pipeline estructurado. El asesor solo recibe leads calificados con contexto completo. Los leads fríos reciben nurturing automático. Se elimina la pérdida de oportunidades por falta de seguimiento.</div>
+              <div class="fi-tech"><span class="tech-tag">WhatsApp API</span><span class="tech-tag">Pipeline CRM ligero</span><span class="tech-tag">Automatización de seguimiento</span></div>
+            </div>
+            <div class="fi-phase l">Launch</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO INTELIGENCIA -->
+    <div class="module">
+      <div class="module-header">
+        <div class="m-ico intel">🧠</div>
+        <div>
+          <div class="m-tag">AXIONA INTELIGENCIA</div>
+          <div class="m-name">Visibilidad e Inteligencia de Negocio</div>
+        </div>
+        <div class="m-pill intel">2 módulos</div>
+      </div>
+      <div class="module-body">
+        <div class="feat-list">
+
+          <div class="feat-item">
+            <div class="fi-num">INTEL · 01</div>
+            <div class="fi-body">
+              <div class="fi-title">Dashboard Ejecutivo de Desempeño</div>
+              <div class="fi-desc">Tablero de control que consolida en tiempo real: estado del embudo de ventas (leads → cotizaciones → cierres), salud de la cartera (activa, en mora, por renovar), productividad del asesor y desempeño de las automatizaciones. Por primera vez, una visión completa del negocio en un solo lugar — sin exportar Excel, sin cruzar reportes.</div>
+              <div class="fi-tech"><span class="tech-tag">Datos propios de la plataforma</span><span class="tech-tag">Agente WhatsApp</span><span class="tech-tag">Pipeline de leads</span></div>
+            </div>
+            <div class="fi-phase l">Launch</div>
+          </div>
+
+          <div class="feat-item">
+            <div class="fi-num">INTEL · 02</div>
+            <div class="fi-body">
+              <div class="fi-title">Insights para Estrategia Comercial y Pauta</div>
+              <div class="fi-desc">Análisis de patrones del negocio: qué tipo de cliente convierte más, qué póliza genera más consultas, en qué horarios llegan más leads calificados, qué mensajes tienen mejor tasa de respuesta. Esta data es el insumo que el community manager necesita para tomar decisiones de contenido y pauta basadas en el negocio real — no en intuición.</div>
+              <div class="fi-tech"><span class="tech-tag">Análisis de conversaciones</span><span class="tech-tag">Datos de conversión</span><span class="tech-tag">Reportes automatizados</span></div>
+            </div>
+            <div class="fi-phase c">Core</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="label-gray">Fuera del alcance de esta propuesta</div>
+  <div class="out-grid">
+    <div class="out-item">Expedición directa de pólizas (requiere revisión y firma del asesor — el sistema prepara el brief completo, el asesor lo ingresa y expide en su herramienta de siempre)</div>
+    <div class="out-item">Producción de contenido para redes sociales (Axiona entrega los insights; el community manager ejecuta)</div>
+    <div class="out-item">Infraestructura de servidores o licencias de herramientas de terceros (WhatsApp API, hosting) — se cotiza por separado o se gestiona con el cliente</div>
+  </div>
+</section>
+
+<!-- ═══════ 04 · CRONOGRAMA ═══════ -->
+<section class="section">
+  <div class="label">04 — Cronograma</div>
+  <h2 class="section-h">De cero a operativo<br>en 10 semanas.</h2>
+  <p class="section-sub">Dentro del objetivo de 3 meses declarado por Miller en el levantamiento. Cada fase tiene hitos medibles que validaremos juntos en la sesión de co-creación.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 0</div>
+        <div class="tl-weeks">Sem 0</div>
+        <div class="tl-weeks-label">Kickoff</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">0</div>
+        <div class="tl-content">
+          <div class="tl-title">Kickoff, configuración de plataforma y base de conocimiento inicial</div>
+          <div class="tl-text">Configuración del espacio de trabajo de Miller, carga inicial de productos y aseguradoras en la base de conocimiento, primer upload de cartera, configuración de WhatsApp Business API (Meta) y alcance final firmado.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Plataforma activa</span><span class="milestone">Base de conocimiento cargada</span><span class="milestone">API WhatsApp activa</span><span class="milestone">Alcance firmado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 1</div>
+        <div class="tl-weeks">Sem 1–3</div>
+        <div class="tl-weeks-label">Foundation</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">1</div>
+        <div class="tl-content">
+          <div class="tl-title">Agente WhatsApp + Automatización de Cobros</div>
+          <div class="tl-text">Despliegue del agente base alimentado por la base de conocimiento de Miller, flujo de cobros automático sobre la cartera cargada en la plataforma y primeras pruebas con clientes reales.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Agente activo en producción</span><span class="milestone">Primer cobro automático enviado</span><span class="milestone">Validación con Miller</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 2</div>
+        <div class="tl-weeks">Sem 4–7</div>
+        <div class="tl-weeks-label">Launch</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">2</div>
+        <div class="tl-content">
+          <div class="tl-title">Cotización asistida + Leads + Dashboard</div>
+          <div class="tl-text">Implementación del flujo de cotización conversacional, sistema de cualificación de leads inbound y versión inicial del dashboard de desempeño. Primera visión completa del embudo de ventas de Miller.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Flujo cotización live</span><span class="milestone">Pipeline de leads activo</span><span class="milestone">Dashboard v1 visible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 3</div>
+        <div class="tl-weeks">Sem 8–10</div>
+        <div class="tl-weeks-label">Estabilización</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">3</div>
+        <div class="tl-content">
+          <div class="tl-title">Insights comerciales + Ajustes + Go-Live oficial</div>
+          <div class="tl-text">Activación del módulo de insights para pauta y community manager, ajustes de comportamiento del agente basados en el uso real, capacitación final y cierre formal del proyecto. Inicio del plan de acompañamiento continuo.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Insights activos</span><span class="milestone">Go-live oficial</span><span class="milestone">Inicio soporte continuo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item ongoing">
+      <div class="tl-left">
+        <div class="tl-phase">Ongoing</div>
+        <div class="tl-weeks">∞</div>
+        <div class="tl-weeks-label">Acompañamiento</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num" style="color:var(--c)">∞</div>
+        <div class="tl-content">
+          <div class="tl-title" style="color:var(--c)">Operación continua y evolución del producto</div>
+          <div class="tl-text">Monitoreo de las automatizaciones, actualización del agente según nuevos flujos y pólizas, mejora del dashboard y reunión ejecutiva mensual de máximo 60 minutos. El producto evoluciona con Miller.</div>
+          <div class="tl-milestones">
+            <span class="milestone" style="color:var(--c);border-color:var(--c-border)">Reunión mensual</span><span class="milestone" style="color:var(--c);border-color:var(--c-border)">Reporte de impacto</span><span class="milestone" style="color:var(--c);border-color:var(--c-border)">Evolución continua</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 05 · ROI ═══════ -->
+<section class="section">
+  <div class="label">05 — Retorno esperado</div>
+  <h2 class="section-h">Lo que la solución<br>le devuelve al negocio.</h2>
+  <p class="section-sub">Tres impactos cuantificables desde el primer mes de operación.</p>
+
+  <div class="roi-grid">
+    <div class="roi-card">
+      <div class="roi-val">COP $2M</div>
+      <div class="roi-label">Ahorro mensual en nómina</div>
+      <div class="roi-text">El sistema reemplaza la necesidad de contratar un auxiliar comercial. El trabajo de cobros, cotizaciones y respuestas lo ejecuta AXIONA SEGUROS sin costo fijo de nómina.</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-val">4–8 h</div>
+      <div class="roi-label">Horas liberadas por día</div>
+      <div class="roi-text">Tiempo que hoy se pierde en operaciones manuales y que se redirige a lo que genera valor real: cerrar ventas, renovar pólizas y expandir el portafolio de clientes.</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-val">24/7</div>
+      <div class="roi-label">Disponibilidad operativa</div>
+      <div class="roi-text">El agente responde, cualifica leads y gestiona cobros fuera del horario laboral. Ninguna oportunidad se pierde porque el asesor estaba ocupado o no disponible.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 06 · POR QUÉ AXIONA ═══════ -->
+<section class="section">
+  <div class="label">06 — Por qué Axiona</div>
+  <h2 class="section-h">No vendemos tecnología.<br>Entregamos resultados.</h2>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="wc-icon">🏗️</div>
+      <div class="wc-title">Co-construcción, no entrega</div>
+      <div class="wc-text">AXIONA SEGUROS se construye sobre tus flujos reales, tus palabras, tus casuísticas. No es una herramienta genérica adaptada — es un producto que parte de tu operación. Esa es la diferencia entre algo que se usa y algo que se archiva.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">💰</div>
+      <div class="wc-title">Visión financiera integrada</div>
+      <div class="wc-text">Cada decisión técnica se evalúa con la misma lógica que tú usas para tomar decisiones de negocio: ¿qué impacto tiene en el EBITDA? ¿en el costo operativo? ¿en la productividad? No somos solo desarrolladores — pensamos como socios de negocio.</div>
+    </div>
+    <div class="why-card">
+      <div class="wc-icon">🔄</div>
+      <div class="wc-title">Servicio, no proyecto</div>
+      <div class="wc-text">No hay un "cierre de proyecto" donde Axiona desaparece. El sistema evoluciona con Miller: nuevas pólizas, nuevos flujos, nuevas métricas. Si tu negocio crece, el sistema crece. Estamos comprometidos con el resultado, no con la entrega.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 07 · SESIÓN DE CO-CREACIÓN ═══════ -->
+<section class="section-last">
+  <div class="label">07 — Sesión de co-creación</div>
+  <h2 class="section-h">Nos sentamos juntos.<br>Construimos el producto.</h2>
+  <p class="section-sub">Este documento es el punto de partida, no el punto de llegada. La sesión es el momento donde Miller valida, ajusta y co-diseña el producto que va a usar.</p>
+
+  <div class="next-steps">
+    <div class="ns-item">
+      <div class="ns-num">01</div>
+      <div>
+        <div class="ns-title">Revisión del brief antes de la sesión</div>
+        <div class="ns-desc">Miller lee este documento y llega a la sesión con preguntas, comentarios y ajustes. No hay respuestas incorrectas — todo lo que diga mejora el producto.</div>
+        <div class="ns-date">Antes de la sesión agendada</div>
+      </div>
+    </div>
+    <div class="ns-item">
+      <div class="ns-num">02</div>
+      <div>
+        <div class="ns-title">Sesión de co-creación — 90 minutos</div>
+        <div class="ns-desc">Recorremos juntos cada módulo: validamos que los flujos propuestos reflejan la realidad de Miller, ajustamos prioridades, identificamos lo que falta y definimos el alcance exacto del producto final.</div>
+        <div class="ns-date">Fecha por confirmar · Máximo 90 minutos</div>
+      </div>
+    </div>
+    <div class="ns-item">
+      <div class="ns-num">03</div>
+      <div>
+        <div class="ns-title">Producto definido → propuesta económica</div>
+        <div class="ns-desc">Con el producto validado y el alcance acordado, Axiona presenta la propuesta económica final. El precio es sobre algo concreto y real — no sobre una estimación.</div>
+        <div class="ns-date">Máximo 5 días hábiles tras la sesión</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /doc -->
+
+<!-- ═══════ CIERRE ═══════ -->
+<div class="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-tag"><span class="cdot"></span>Vision Brief · Sesión de co-creación</div>
+  <h2 class="closing-h">Este brief<br><em>es tuyo.</em></h2>
+  <p class="closing-sub">Llégalo con marcas, preguntas y cambios.<br>Lo que salga de esa conversación es AXIONA SEGUROS.</p>
+  <div class="closing-contact" style="font-size:14px;color:var(--ts);margin-top:0">Nos vemos en la sesión · ventas@axiona-tech.com</div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<div class="doc-footer">
+  <div>
+    <div class="df-logo">Axiona <em>·</em> AI &amp; Analytics</div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--tm);margin-top:4px">Colombia &amp; United States · 2026</div>
+  </div>
+  <div class="df-meta">
+    <div>Vision Brief · AXIONA SEGUROS · Miller</div>
+    <div>Ref: AX-2026-001 · 18 de Marzo de 2026</div>
+  </div>
+  <div class="df-conf">
+    <div>CONFIDENCIAL — Solo para el destinatario</div>
+    <div>© 2026 Axiona. Todos los derechos reservados.</div>
+  </div>
+</div>
+
+<script>
+const pb = document.getElementById('pb')
+window.addEventListener('scroll',()=>{
+  const h = document.documentElement.scrollHeight - window.innerHeight
+  pb.style.width = (window.scrollY / h * 100) + '%'
+})
+</script>
+</body>
+</html>
