@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #07080F;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* ─────────────────────────────────────────
+   NOISE / GRAIN OVERLAY
+───────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  animation: noise 0.5s steps(1) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+@keyframes noise {
+  0%   { background-position: 0 0; }
+  10%  { background-position: -5% -10%; }
+  20%  { background-position: -15% 5%; }
+  30%  { background-position: 7% -25%; }
+  40%  { background-position: 20% 25%; }
+  50%  { background-position: -25% 10%; }
+  60%  { background-position: 15% 5%; }
+  70%  { background-position: 0% 15%; }
+  80%  { background-position: 25% 35%; }
+  90%  { background-position: -10% 10%; }
+  100% { background-position: 0 0; }
+}
+
+/* ─────────────────────────────────────────
+   ORBES FLOTANTES
+───────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25%       { transform: translateY(-28px) translateX(12px); }
+  50%       { transform: translateY(-14px) translateX(-8px); }
+  75%       { transform: translateY(-36px) translateX(6px); }
+}
+
+/* ─────────────────────────────────────────
+   GRID BACKGROUND MOVEMENT
+───────────────────────────────────────── */
+@keyframes grid-move {
+  0%   { transform: translateX(0px) translateY(0px); }
+  100% { transform: translateX(-64px) translateY(-64px); }
+}
+
+/* ─────────────────────────────────────────
+   GRADIENT TITLE SHIFT
+───────────────────────────────────────── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ─────────────────────────────────────────
+   SHIMMER SWEEP (eyebrow / button)
+───────────────────────────────────────── */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* ─────────────────────────────────────────
+   TYPEWRITER CURSOR BLINK
+───────────────────────────────────────── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─────────────────────────────────────────
+   PULSE DOT
+───────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 8px rgba(43,203,202,0.9); opacity: 1; }
+  50%       { box-shadow: 0 0 18px rgba(43,203,202,1); opacity: 0.7; }
+}
+
+/* ─────────────────────────────────────────
+   STEP NUMBER REVEAL
+───────────────────────────────────────── */
+@keyframes step-num-reveal {
+  from { opacity: 0; transform: scale(1.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ─────────────────────────────────────────
+   CONNECTOR LINE DRAW
+───────────────────────────────────────── */
+@keyframes draw-line {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ─────────────────────────────────────────
+   BUTTON SHIMMER wrapper
+───────────────────────────────────────── */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer .shimmer-inner {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.btn-shimmer .shimmer-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.22),
+    transparent
+  );
+  animation: shimmer-sweep 3s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   MAGNETIC CARD PERSPECTIVE WRAPPER
+───────────────────────────────────────── */
+.magnetic-wrap {
+  perspective: 800px;
+}
+
+/* ─────────────────────────────────────────
+   HOVER GLOW BORDER
+───────────────────────────────────────── */
+.card-glow {
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+.card-glow:hover {
+  border-color: rgba(43,203,202,0.35);
+  box-shadow: 0 0 20px rgba(43,203,202,0.08), inset 0 0 20px rgba(43,203,202,0.02);
+}
+
+/* ─────────────────────────────────────────
+   SCROLL PROGRESS BAR
+───────────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: #2BCBCA;
+  z-index: 10000;
+  pointer-events: none;
+  transform-origin: left;
+  box-shadow: 0 0 8px rgba(43,203,202,0.7);
+  transition: width 0.05s linear;
+}
+
+/* ─────────────────────────────────────────
+   LEGACY animate-in
+───────────────────────────────────────── */
+@layer utilities {
+  .animate-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
