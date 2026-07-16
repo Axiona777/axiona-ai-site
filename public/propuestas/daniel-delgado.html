@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Axiona — Daniel Delgado</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c:#2BCBCA;
+  --c-soft:rgba(43,203,202,.12);
+  --c-border:rgba(43,203,202,.18);
+  --navy:#1C3D6E;
+  --navy-soft:rgba(28,61,110,.25);
+  --bg:#07080F;
+  --s1:#0C0E1C;
+  --s2:#111425;
+  --s3:#181D30;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.09);
+  --tp:#EDF0FF;
+  --ts:#7B84AA;
+  --tm:#3D4566;
+  --mono:'JetBrains Mono','Cascadia Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tp);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+@media print{
+  body{background:#fff;color:#0a0a12}
+  .no-print{display:none}
+  .page-break{break-before:page}
+  section{break-inside:avoid}
+}
+
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:64px 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+.cover-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(28,61,110,.35) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 90% 80%,rgba(43,203,202,.06) 0%,transparent 55%)}
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(43,203,202,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(43,203,202,.022) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 90% 80% at 20% 50%,black 0%,transparent 70%)}
+.cover-top{position:relative;display:flex;justify-content:space-between;align-items:flex-start}
+.cover-logo{display:flex;align-items:center;gap:12px}
+.cover-logo svg{width:36px;height:36px}
+.cover-logo-name{font-size:18px;font-weight:800;letter-spacing:-.5px}
+.cover-logo-name em{color:var(--c);font-style:normal}
+.cover-meta{font-family:var(--mono);font-size:11px;color:var(--tm);letter-spacing:1.5px;text-align:right;line-height:2}
+.cover-meta span{color:var(--ts)}
+.cover-mid{position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0}
+.cover-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 10px;background:var(--c-soft);border:1px solid var(--c-border);border-radius:100px;font-size:11px;font-weight:700;color:var(--c);letter-spacing:2px;text-transform:uppercase;font-family:var(--mono);margin-bottom:40px;width:fit-content}
+.cover-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c)}
+.cover-type{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--tm);margin-bottom:16px}
+.cover-client{font-size:clamp(52px,8vw,100px);font-weight:900;letter-spacing:-4px;line-height:.9;margin-bottom:24px}
+.cover-client-sub{font-size:clamp(18px,2.2vw,26px);font-weight:300;color:var(--ts);letter-spacing:-1px;margin-bottom:40px}
+.cover-service-badge{display:inline-flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
+.sb{padding:8px 18px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:8px;font-size:13px;font-weight:600;color:var(--ts);letter-spacing:-.2px}
+.sb.active{background:var(--c-soft);border-color:var(--c-border);color:var(--c)}
+.cover-tagline{font-size:16px;color:var(--ts);max-width:560px;line-height:1.8;font-style:italic}
+.cover-tagline em{color:var(--tp);font-style:normal}
+.cover-bottom{position:relative;display:flex;justify-content:space-between;align-items:flex-end;padding-top:40px;border-top:1px solid var(--border)}
+.cover-contact div{font-size:13px;color:var(--ts);line-height:2}
+.cover-contact strong{color:var(--tp);font-weight:600}
+.cover-conf{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:right;line-height:2}
+
+/* LAYOUT */
+.doc{max-width:1100px;margin:0 auto}
+.section{padding:80px 72px;border-bottom:1px solid var(--border)}
+.section-last{padding:80px 72px}
+.label{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--c);margin-bottom:16px}
+.label-gray{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tm);margin-bottom:16px}
+.section-h{font-size:clamp(28px,3.5vw,48px);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:20px;text-wrap:balance}
+.section-sub{font-size:16px;color:var(--ts);line-height:1.8;max-width:680px}
+.divider{height:1px;background:var(--border);margin:40px 0}
+
+/* CARTA */
+.carta-body{max-width:700px;display:flex;flex-direction:column;gap:22px;margin-top:40px;padding:40px;background:var(--s1);border:1px solid var(--border);border-left:3px solid rgba(43,203,202,.3);border-radius:0 16px 16px 0}
+.carta-saludo{font-size:20px;font-weight:700;color:var(--tp);letter-spacing:-.4px}
+.carta-body p{font-size:15px;color:var(--ts);line-height:1.9}
+.carta-body p em{color:var(--tp);font-style:normal;font-weight:600}
+.carta-firma{font-size:13px;font-weight:700;color:var(--c);font-family:var(--mono);letter-spacing:1px;padding-top:8px;border-top:1px solid var(--border)}
+
+/* EXEC SUMMARY */
+.exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.exec-card{background:var(--s1);padding:36px;position:relative;overflow:hidden}
+.exec-card-label{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:12px}
+.exec-card-title{font-size:18px;font-weight:700;letter-spacing:-.4px;margin-bottom:10px;color:var(--tp)}
+.exec-card-text{font-size:14px;color:var(--ts);line-height:1.8}
+.exec-card.highlight{background:linear-gradient(135deg,rgba(28,61,110,.4) 0%,rgba(43,203,202,.05) 100%);border-bottom:2px solid rgba(43,203,202,.3)}
+.exec-card.highlight .exec-card-title{color:var(--c)}
+
+/* DIAGNOSTIC */
+.pain-list{display:flex;flex-direction:column;gap:2px;margin-top:40px;border-radius:16px;overflow:hidden;background:var(--border)}
+.pain-item{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:20px;padding:24px 32px;background:var(--s1);transition:background .2s}
+.pain-item:hover{background:var(--s2)}
+.pain-n{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);opacity:.5}
+.pain-title{font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
+.pain-desc{font-size:13px;color:var(--ts);line-height:1.6}
+.pain-impact{font-family:var(--mono);font-size:11px;padding:4px 10px;border-radius:6px;white-space:nowrap}
+.impact-high{background:rgba(255,75,75,.08);color:#FF6B6B;border:1px solid rgba(255,75,75,.15)}
+.impact-med{background:rgba(255,200,50,.07);color:#F5C842;border:1px solid rgba(255,200,50,.12)}
+.impact-low{background:rgba(43,203,202,.07);color:var(--c);border:1px solid var(--c-border)}
+
+/* ALCANCE */
+.scope-header{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;margin-bottom:4px}
+.product-pill{padding:20px 28px;border-radius:14px;display:flex;align-items:center;gap:14px;background:var(--s2);border:1px solid var(--border2)}
+.product-pill.on-i{background:var(--c-soft);border-color:var(--c-border)}
+.product-pill.on-o{background:var(--navy-soft);border-color:rgba(108,155,220,.2)}
+.pp-icon{font-size:24px}
+.pp-name{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.pp-desc{font-size:12px;color:var(--ts);margin-top:2px}
+.deliverables{display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:4px}
+.deliv-group{background:var(--s1)}
+.deliv-group-header{padding:20px 32px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
+.dg-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.dg-icon.intel{background:var(--c-soft)}
+.dg-icon.opera{background:rgba(108,155,220,.1)}
+.dg-title{font-size:14px;font-weight:700;letter-spacing:-.2px}
+.dg-sub{font-size:12px;color:var(--ts);margin-top:1px}
+.deliv-list{padding:8px 0}
+.deliv-item{display:flex;align-items:center;gap:16px;padding:14px 32px;transition:background .15s}
+.deliv-item:hover{background:rgba(255,255,255,.02)}
+.di-check{width:22px;height:22px;border-radius:6px;background:var(--c-soft);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.di-check svg{width:10px;height:10px;stroke:var(--c);fill:none;stroke-width:2.5}
+.di-check.blue{background:rgba(108,155,220,.08);border-color:rgba(108,155,220,.2)}
+.di-check.blue svg{stroke:#6C9BDC}
+.di-text{font-size:14px;color:var(--ts);line-height:1.5;flex:1}
+.di-text strong{color:var(--tp);font-weight:600}
+.di-tag{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;background:rgba(255,255,255,.04);color:var(--tm);border:1px solid var(--border);white-space:nowrap}
+.out-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:32px}
+.out-item{background:var(--s1);padding:28px;font-size:13px;color:var(--tm);display:flex;align-items:flex-start;gap:10px;line-height:1.6}
+.out-item::before{content:'✕';color:rgba(255,100,100,.3);font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* TIMELINE */
+.timeline{margin-top:40px;display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:20px;overflow:hidden}
+.tl-item{display:grid;grid-template-columns:160px 1fr;background:var(--s1);transition:background .2s}
+.tl-item:hover{background:var(--s2)}
+.tl-left{padding:32px 28px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.tl-phase{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);margin-bottom:6px}
+.tl-weeks{font-size:22px;font-weight:900;letter-spacing:-1px;color:var(--c);line-height:1}
+.tl-weeks-label{font-size:11px;color:var(--ts);margin-top:2px}
+.tl-right{padding:32px 36px;display:flex;align-items:flex-start;gap:20px}
+.tl-num{width:32px;height:32px;border-radius:8px;background:var(--c-soft);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c);flex-shrink:0;margin-top:2px}
+.tl-title{font-size:17px;font-weight:700;letter-spacing:-.4px;margin-bottom:6px}
+.tl-text{font-size:13px;color:var(--ts);line-height:1.7}
+.tl-milestones{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.milestone{font-family:var(--mono);font-size:10px;padding:4px 10px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:6px;color:var(--ts);letter-spacing:.3px}
+
+/* INVESTMENT */
+.pricing-table{margin-top:40px;background:var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.pt-row{display:grid;grid-template-columns:1fr 160px 180px;background:var(--s1);transition:background .2s}
+.pt-row:hover{background:var(--s2)}
+.pt-row.header{background:var(--s2);border-bottom:1px solid var(--border2)}
+.pt-cell{padding:20px 28px;font-size:14px;display:flex;align-items:center}
+.pt-row.header .pt-cell{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tm);padding:14px 28px}
+.pt-cell.right{justify-content:flex-end;font-weight:700;color:var(--tp);font-family:var(--mono)}
+.pt-cell.center{justify-content:center;color:var(--ts)}
+.pt-row.total{background:linear-gradient(90deg,rgba(43,203,202,.06) 0%,transparent 100%);border-top:1px solid var(--border2)}
+.pt-row.total .pt-cell{font-size:15px;font-weight:800;color:var(--tp)}
+.pt-row.total .pt-cell.right{color:var(--c);font-size:16px;letter-spacing:.5px}
+.invest-note{margin-top:20px;padding:20px 28px;background:rgba(43,203,202,.04);border:1px solid var(--c-border);border-radius:12px;font-size:13px;color:var(--ts);line-height:1.7}
+.invest-note strong{color:var(--c);font-weight:600}
+
+/* NEXT STEPS */
+.next-steps{display:flex;flex-direction:column;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px}
+.ns-item{display:flex;align-items:flex-start;gap:20px;padding:28px 36px;background:var(--s1);transition:background .2s}
+.ns-item:hover{background:var(--s2)}
+.ns-num{width:36px;height:36px;border-radius:10px;background:var(--c-soft);border:1px solid var(--c-border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--c);flex-shrink:0}
+.ns-title{font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:5px}
+.ns-desc{font-size:13px;color:var(--ts);line-height:1.65}
+.ns-date{font-family:var(--mono);font-size:11px;color:var(--c);margin-top:6px;letter-spacing:.5px}
+
+/* CLOSING */
+.closing{min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 72px;position:relative;overflow:hidden}
+.closing-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 70%,rgba(43,203,202,.06) 0%,transparent 65%),radial-gradient(ellipse 60% 60% at 50% 30%,rgba(28,61,110,.2) 0%,transparent 60%)}
+.closing-tag{position:relative;display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 10px;background:var(--c-soft);border:1px solid var(--c-border);border-radius:100px;font-size:11px;font-weight:700;color:var(--c);font-family:var(--mono);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px}
+.closing-dot{width:7px;height:7px;border-radius:50%;background:var(--c);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(43,203,202,.4)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(43,203,202,0)}}
+.closing-h{position:relative;font-size:clamp(40px,6vw,80px);font-weight:900;letter-spacing:-3.5px;line-height:.95;margin-bottom:24px}
+.closing-h em{background:linear-gradient(120deg,#2BCBCA,#6EE8E7,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.closing-sub{position:relative;font-size:17px;color:var(--ts);max-width:500px;margin:0 auto 48px;line-height:1.8}
+.btn-close{position:relative;display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:var(--c);color:#07080F;border-radius:14px;font-size:16px;font-weight:700;text-decoration:none;transition:all .2s;letter-spacing:-.2px}
+.btn-close:hover{background:#5DDBD9;transform:translateY(-2px);box-shadow:0 20px 56px rgba(43,203,202,.28)}
+.closing-contact{position:relative;margin-top:24px;font-family:var(--mono);font-size:12px;color:var(--tm);letter-spacing:.5px}
+
+/* FOOTER */
+.doc-footer{padding:32px 72px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.df-logo{font-size:15px;font-weight:800;letter-spacing:-.4px}
+.df-logo em{color:var(--c);font-style:normal}
+.df-meta{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:center;line-height:1.8}
+.df-conf{font-family:var(--mono);font-size:10px;color:var(--tm);letter-spacing:1px;text-align:right;line-height:1.8}
+
+@media(max-width:768px){
+  .cover,.section,.section-last,.closing,.doc-footer{padding-left:24px;padding-right:24px}
+  .exec-grid,.scope-header{grid-template-columns:1fr}
+  .out-grid{grid-template-columns:1fr}
+  .tl-item{grid-template-columns:1fr}
+  .tl-left{border-right:none;border-bottom:1px solid var(--border);padding:20px 24px}
+  .pt-row{grid-template-columns:1fr 1fr}
+  .pt-cell.center{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+
+  <div class="cover-top">
+    <div class="cover-logo">
+      <svg viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="92" stroke="#2BCBCA" stroke-width="8"/>
+        <path d="M56 150L88 58L102 92L72 150Z" fill="#1C3D6E"/>
+        <path d="M144 150L112 58L98 92L128 150Z" fill="#2BCBCA"/>
+        <path d="M100 92L88 58L112 58Z" fill="#153260" opacity=".9"/>
+      </svg>
+      <span class="cover-logo-name">Axiona <em>·</em> AI &amp; Analytics</span>
+    </div>
+    <div class="cover-meta">
+      <div>PROPUESTA COMERCIAL</div>
+      <div>Ref: AX-2026-002</div>
+      <div>Julio de 2026</div>
+      <div>Válida hasta: <span>30 de julio de 2026</span></div>
+    </div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="cover-tag">Propuesta a la medida</div>
+    <div class="cover-type">Preparada para</div>
+    <h1 class="cover-client">Daniel<br>Delgado</h1>
+    <div class="cover-client-sub">Compra-venta de tecnología · Valencia, España</div>
+    <div class="cover-service-badge">
+      <div class="sb active">◆ AXIONA INTELIGENCIA</div>
+      <div class="sb active">◆ AXIONA OPERA</div>
+    </div>
+    <div class="cover-tagline">"La tecnología que piensa con la misma <em>visión financiera</em> que tú."</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-contact">
+      <div><strong>Elaborado por</strong> Equipo Axiona</div>
+      <div><strong>Contacto</strong> ventas@axiona-tech.com</div>
+      <div><strong>Web</strong> axiona-tech.com</div>
+    </div>
+    <div class="cover-conf">
+      <div>DOCUMENTO CONFIDENCIAL</div>
+      <div>Solo para uso del destinatario</div>
+      <div>© 2026 Axiona · Todos los derechos reservados</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc">
+
+<!-- CARTA DE PRESENTACIÓN -->
+<section class="section">
+  <div class="label">Carta de presentación</div>
+  <div class="carta-body">
+    <div class="carta-saludo">Daniel:</div>
+    <p>Hace casi dos años, un reloj vendido en Wallapop por necesidad marcó, sin saberlo, el inicio de un negocio. Lo que empezó como una salida puntual recién llegado a Valencia es hoy tu fuente de ingreso principal: una operación real de compra-venta de tecnología, con volumen, clientes recurrentes y crecimiento sostenido.</p>
+    <p>Ese recorrido demuestra <em>instinto comercial y capacidad de ejecución</em>. Pero un negocio que ya mueve seis cifras al año no puede seguir dirigiéndose con una hoja manual y con la caja repartida entre monederos, tarjetas y efectivo. Llegó el momento de convertir el instinto en estructura: rigor financiero, control operativo y la automatización necesaria para que dediques tu tiempo a decidir, no a registrar.</p>
+    <p>Esta propuesta parte de un principio: <em>no venimos a decirte lo que creemos, venimos a mostrarte lo que dicen tus propios números</em>. Sobre ese diagnóstico construimos una hoja de ruta por fases que instala control financiero, ordena el inventario, te da visibilidad gerencial y pone la inteligencia artificial a trabajar por ti.</p>
+    <p>En AXIONA hacemos exactamente esto: convertir operaciones informales en empresas dirigidas por datos. Estamos listos para hacerlo contigo.</p>
+    <div class="carta-firma">EQUIPO AXIONA</div>
+  </div>
+</section>
+
+<!-- 01 · RESUMEN EJECUTIVO -->
+<section class="section">
+  <div class="label">01 — Resumen Ejecutivo</div>
+  <h2 class="section-h">Lo que encontramos.<br>Lo que proponemos.</h2>
+  <p class="section-sub">Diagnóstico construido íntegramente sobre tu base real (enero–julio 2026). No son supuestos: es la fotografía objetiva de la operación y la justificación de cada fase.</p>
+
+  <div class="exec-grid">
+    <div class="exec-card highlight">
+      <div class="exec-card-label">El desafío central</div>
+      <div class="exec-card-title">Un negocio de seis cifras atrapado en una estructura informal</div>
+      <div class="exec-card-text">245 operaciones reales, 106.382 € en compras, 19.205 € de beneficio bruto — pero sin caja consolidada, sin separación personal/negocio y sin visibilidad de rentabilidad por producto. El valor está atrapado; hace falta estructura para liberarlo.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Nuestra propuesta</div>
+      <div class="exec-card-title">Implementación en 5 fases — arquitectura financiera, inventario, dashboards e IA</div>
+      <div class="exec-card-text">De la hoja manual a un sistema de control en tiempo real: flujo de caja consolidado, inventario con alertas de rotación, dashboards gerenciales y asistentes de IA que automatizan la operación diaria.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Resultado esperado</div>
+      <div class="exec-card-title">Control total + tiempo devuelto para decidir, no para registrar</div>
+      <div class="exec-card-text">Posición de caja en tiempo real. Rentabilidad visible por producto, canal y categoría. Política de márgenes activa. Reportes automáticos. Inventario que avisa cuándo comprar y cuándo liquidar.</div>
+    </div>
+    <div class="exec-card">
+      <div class="exec-card-label">Inversión</div>
+      <div class="exec-card-title">Proyecto por hitos + retainer mensual de soporte</div>
+      <div class="exec-card-text">Implementación en 15 semanas. Pagas contra entregables validados — no antes. Modelo de acompañamiento continuo post-implementación para que el sistema siga creciendo contigo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · DIAGNÓSTICO -->
+<section class="section">
+  <div class="label">02 — Diagnóstico</div>
+  <h2 class="section-h">Lo que dicen tus números.</h2>
+  <p class="section-sub">Hallazgos extraídos de tu base de datos real (enero–julio 2026). Priorizados por impacto financiero.</p>
+
+  <div class="pain-list">
+    <div class="pain-item">
+      <div class="pain-n">01</div>
+      <div class="pain-body">
+        <div class="pain-title">Caja fragmentada y sin posición consolidada</div>
+        <div class="pain-desc">37 % de las ventas se cobran en efectivo. Fondos repartidos entre monederos Wallapop/Vinted, Bizum de dos personas y varias tarjetas —incluyendo una de un tercero—. No existe una posición de caja real. Imposible planificar liquidez.</div>
+      </div>
+      <div class="pain-impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">02</div>
+      <div class="pain-body">
+        <div class="pain-title">Sin separación finanzas personales / negocio</div>
+        <div class="pain-desc">De 234 gastos, 194 son personales (11.861 €) frente a 40 del negocio (1.612 €), mezclados en las mismas cuentas. La rentabilidad real del negocio es ilegible. Riesgo contable y fiscal directo.</div>
+      </div>
+      <div class="pain-impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">03</div>
+      <div class="pain-body">
+        <div class="pain-title">Capital de trabajo inmovilizado: 23.663 € en stock parado</div>
+        <div class="pain-desc">40 ítems en inventario/alerta representan 23.663 € de coste sin rotar. Liquidez atrapada en producto sin política de rotación ni de reposición. Sin visibilidad de qué liquidar ni cuándo.</div>
+      </div>
+      <div class="pain-impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">04</div>
+      <div class="pain-body">
+        <div class="pain-title">Riesgo fiscal en la formalización</div>
+        <div class="pain-desc">Declarando, el resultado enero–mayo es de −789 €. Constituirse sin reestructurar previamente haría aparentar pérdidas. Una contingencia que exige orden financiero antes de dar el paso legal.</div>
+      </div>
+      <div class="pain-impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">05</div>
+      <div class="pain-body">
+        <div class="pain-title">Sin política de márgenes — ventas a pérdida detectadas</div>
+        <div class="pain-desc">Margen medio del 24 %, con rango de −92 % a +67 %. Existen operaciones a pérdida evitables. Sin disciplina de precios mínimos ni reglas de descuento, el volumen crece pero la rentabilidad no.</div>
+      </div>
+      <div class="pain-impact impact-high">Alto impacto</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">06</div>
+      <div class="pain-body">
+        <div class="pain-title">Base de datos manual no fiable</div>
+        <div class="pain-desc">Fechas incoherentes (compras posteriores a la venta), columnas duplicadas y categorías vacías. La fuente de datos actual no sirve para decidir. Hace falta un sistema, no una hoja.</div>
+      </div>
+      <div class="pain-impact impact-med">Impacto medio</div>
+    </div>
+    <div class="pain-item">
+      <div class="pain-n">07</div>
+      <div class="pain-body">
+        <div class="pain-title">Concentración de producto no explotada estratégicamente</div>
+        <div class="pain-desc">Las gafas inteligentes lideran con 79 operaciones —muy por encima del resto—. Oportunidad de foco estratégico de compra y de márgenes hoy desaprovechada por falta de visibilidad analítica.</div>
+      </div>
+      <div class="pain-impact impact-low">Optimizable</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · ALCANCE -->
+<section class="section">
+  <div class="label">03 — Alcance de la propuesta</div>
+  <h2 class="section-h">Qué entregamos.<br>Qué no está incluido.</h2>
+  <p class="section-sub">Transparencia total de alcance. Cada hito es aprobado explícitamente antes de avanzar. Sin cajas negras.</p>
+
+  <div class="scope-header">
+    <div class="product-pill on-i">
+      <div class="pp-icon">🧠</div>
+      <div>
+        <div class="pp-name">AXIONA INTELIGENCIA</div>
+        <div class="pp-desc">Incluido en esta propuesta</div>
+      </div>
+    </div>
+    <div class="product-pill on-o">
+      <div class="pp-icon">⚙️</div>
+      <div>
+        <div class="pp-name">AXIONA OPERA</div>
+        <div class="pp-desc">Incluido en esta propuesta</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="deliverables">
+    <div class="deliv-group">
+      <div class="deliv-group-header">
+        <div class="dg-icon intel">🧠</div>
+        <div>
+          <div class="dg-title">AXIONA INTELIGENCIA — Entregables</div>
+          <div class="dg-sub">Arquitectura financiera · Control de inventario · Dashboard gerencial</div>
+        </div>
+      </div>
+      <div class="deliv-list">
+        <div class="deliv-item">
+          <div class="di-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Diagnóstico de madurez financiera y operativa</strong> — Mapa de procesos, auditoría de la base manual, identificación de fugas y quick-wins.</div>
+          <div class="di-tag">Fase 0</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Motor de flujo de caja real y proyectado</strong> — Consolidación de todos los medios de pago (efectivo, monederos, Bizum, tarjetas) en una posición de caja única.</div>
+          <div class="di-tag">Fase 1</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Rentabilidad por producto, canal y categoría</strong> — Política de márgenes activa. Estados financieros. Presupuesto anual con control presupuestal.</div>
+          <div class="di-tag">Fase 1</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Dashboard gerencial interactivo</strong> — Vista única de finanzas, inventario y operación. KPIs en tiempo real para dirigir con datos, no con intuición.</div>
+          <div class="di-tag">Fase 3</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Diccionario de indicadores y sesión de capacitación</strong> — Transferencia de conocimiento completa para autonomía del negocio.</div>
+          <div class="di-tag">Fase 3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="deliv-group">
+      <div class="deliv-group-header">
+        <div class="dg-icon opera">⚙️</div>
+        <div>
+          <div class="dg-title">AXIONA OPERA — Entregables</div>
+          <div class="dg-sub">Inventario en tiempo real · Automatizaciones · Asistentes de IA</div>
+        </div>
+      </div>
+      <div class="deliv-list">
+        <div class="deliv-item">
+          <div class="di-check blue"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Sistema de control de inventario en tiempo real</strong> — Rotación, días de inventario, capital inmovilizado y punto de reorden. Alertas automáticas de stock, antigüedad y liquidez atrapada.</div>
+          <div class="di-tag">Fase 2</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check blue"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Automatizaciones de reportería y notificaciones</strong> — Resúmenes diarios por correo, alertas de márgenes por debajo del mínimo, digest de inventario crítico.</div>
+          <div class="di-tag">Fase 4</div>
+        </div>
+        <div class="deliv-item">
+          <div class="di-check blue"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+          <div class="di-text"><strong>Asistentes de IA sobre los datos del negocio</strong> — Consultas en lenguaje natural sobre finanzas, inventario y operación.</div>
+          <div class="di-tag">Fase 4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="label-gray">Fuera del alcance de esta propuesta</div>
+  <div class="out-grid">
+    <div class="out-item">Asesoría fiscal y jurídica local para la constitución de la sociedad en España (IVA, régimen autónomo o SL)</div>
+    <div class="out-item">Tramitación directa ante Hacienda, Seguridad Social o gestores públicos españoles</div>
+    <div class="out-item">Desarrollo de software a medida no relacionado con analítica, inventario o automatización del negocio</div>
+  </div>
+</section>
+
+<!-- 04 · CRONOGRAMA -->
+<section class="section">
+  <div class="label">04 — Cronograma</div>
+  <h2 class="section-h">De cero a operativo<br>en 15 semanas.</h2>
+  <p class="section-sub">Cinco fases con dependencia lógica: cada una entrega valor por sí misma y construye la base de la siguiente. Algunas fases pueden solaparse parcialmente para acelerar.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 0</div>
+        <div class="tl-weeks">2 sem</div>
+        <div class="tl-weeks-label">Diagnóstico</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">0</div>
+        <div class="tl-content">
+          <div class="tl-title">Diagnóstico y levantamiento</div>
+          <div class="tl-text">Levantamiento de procesos de compra, venta, despacho y cobro. Inventario de canales y medios de pago. Auditoría y limpieza de la base manual. Identificación de fugas, cuellos de botella y quick-wins.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Mapa de procesos</span>
+            <span class="milestone">Base limpia</span>
+            <span class="milestone">Quick-wins identificados</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 1</div>
+        <div class="tl-weeks">4 sem</div>
+        <div class="tl-weeks-label">Finanzas</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">1</div>
+        <div class="tl-content">
+          <div class="tl-title">Arquitectura financiera y control</div>
+          <div class="tl-text">Separación finanzas personales / negocio. Motor de flujo de caja real y proyectado con todos los medios de pago consolidados. Rentabilidad por producto y canal. Política de márgenes. Estados financieros y presupuesto anual.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Caja consolidada</span>
+            <span class="milestone">P&L por producto</span>
+            <span class="milestone">Política de márgenes activa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 2</div>
+        <div class="tl-weeks">3 sem</div>
+        <div class="tl-weeks-label">Inventario</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">2</div>
+        <div class="tl-content">
+          <div class="tl-title">Control de inventario en tiempo real</div>
+          <div class="tl-text">Sistema centralizado de control de inventario. Indicadores de rotación, días de inventario y capital inmovilizado. Alertas de stock, antigüedad y liquidez atrapada. Reglas de reposición y liquidación de baja rotación.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Inventario centralizado</span>
+            <span class="milestone">Alertas activas</span>
+            <span class="milestone">Tablero de rotación</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 3</div>
+        <div class="tl-weeks">3 sem</div>
+        <div class="tl-weeks-label">Dashboard</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">3</div>
+        <div class="tl-content">
+          <div class="tl-title">Dashboard gerencial</div>
+          <div class="tl-text">Integración de finanzas, inventario y operación en una vista única de dirección. KPIs gerenciales y jerarquía de indicadores. Dashboard ejecutivo interactivo. Capacitación y transferencia de conocimiento.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Dashboard live</span>
+            <span class="milestone">Capacitación completada</span>
+            <span class="milestone">Diccionario de KPIs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-phase">Fase 4</div>
+        <div class="tl-weeks">3 sem</div>
+        <div class="tl-weeks-label">IA & Automation</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num">4</div>
+        <div class="tl-content">
+          <div class="tl-title">Automatización y asistentes de IA</div>
+          <div class="tl-text">Automatización de reportería, alertas y notificaciones. Asistente de IA para consultas financieras y operativas sobre los datos del negocio.</div>
+          <div class="tl-milestones">
+            <span class="milestone">Automatizaciones en prod</span>
+            <span class="milestone">Asistente IA operativo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-item" style="background:linear-gradient(90deg,rgba(43,203,202,.04) 0%,transparent 100%)">
+      <div class="tl-left">
+        <div class="tl-phase">Ongoing</div>
+        <div class="tl-weeks">∞</div>
+        <div class="tl-weeks-label">Acompañamiento</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-num" style="color:var(--c)">∞</div>
+        <div class="tl-content">
+          <div class="tl-title" style="color:var(--c)">Retainer de consultoría e infraestructura</div>
+          <div class="tl-text">Análisis mensual del rendimiento del sistema y los indicadores clave del negocio. Detección de desviaciones y alertas tempranas. Reunión ejecutiva mensual (máx. 60 min) con reporte de avance y recomendaciones. Infraestructura cloud garantizada para la disponibilidad continua del sistema.</div>
+          <div class="tl-milestones">
+            <span class="milestone" style="color:var(--c);border-color:var(--c-border)">Reunión ejecutiva</span>
+            <span class="milestone" style="color:var(--c);border-color:var(--c-border)">Reporte mensual</span>
+            <span class="milestone" style="color:var(--c);border-color:var(--c-border)">Infraestructura garantizada</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · INVERSIÓN -->
+<section class="section">
+  <div class="label">05 — Inversión</div>
+  <h2 class="section-h">Precio claro.<br>Pagas contra entregables.</h2>
+  <p class="section-sub">Modelo híbrido que alinea los intereses de ambas partes. Sin anticipos de riesgo: cada hito se abona una vez validado y aprobado.</p>
+
+  <div class="pricing-table">
+    <div class="pt-row header">
+      <div class="pt-cell">Concepto</div>
+      <div class="pt-cell center">Modalidad</div>
+      <div class="pt-cell right">Inversión</div>
+    </div>
+    <div class="pt-row">
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:700;margin-bottom:3px">Proyecto de implementación — Fases 0 a 4</div>
+          <div style="font-size:12px;color:var(--ts)">Diagnóstico · Arquitectura financiera · Inventario · Dashboard gerencial · IA &amp; Automatización</div>
+        </div>
+      </div>
+      <div class="pt-cell center" style="font-size:12px;color:var(--ts)">Por hitos validados</div>
+      <div class="pt-cell right">8.000.000 COP</div>
+    </div>
+    <div class="pt-row">
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:700;margin-bottom:3px">Retainer de consultoría</div>
+          <div style="font-size:12px;color:var(--ts)">Análisis de indicadores, monitoreo del sistema y reunión ejecutiva mensual — post-implementación</div>
+        </div>
+      </div>
+      <div class="pt-cell center" style="font-size:12px;color:var(--ts)">Mensual recurrente</div>
+      <div class="pt-cell right">30 USD / mes</div>
+    </div>
+    <div class="pt-row">
+      <div class="pt-cell">
+        <div>
+          <div style="font-weight:700;margin-bottom:3px">Soporte e infraestructura cloud</div>
+          <div style="font-size:12px;color:var(--ts)">Disponibilidad garantizada del sistema · Cómputo, almacenamiento y ejecución de automatizaciones 24/7</div>
+        </div>
+      </div>
+      <div class="pt-cell center" style="font-size:12px;color:var(--ts)">Mensual recurrente</div>
+      <div class="pt-cell right">30 USD / mes</div>
+    </div>
+    <div class="pt-row total">
+      <div class="pt-cell">Cuota mensual post-implementación</div>
+      <div class="pt-cell center" style="font-size:12px;color:var(--ts)">Consultoría + Infraestructura</div>
+      <div class="pt-cell right">60 USD / mes</div>
+    </div>
+  </div>
+
+  <div class="invest-note">
+    <strong>Condiciones de pago:</strong> 30 % al inicio del proyecto · 30 % al cierre validado de las Fases 0, 1 y 2 · 40 % al cierre de las Fases 3 y 4 (entrega final). Cuota mensual del retainer anticipada el primer día de cada mes. · <strong>Confidencialidad:</strong> tratamiento confidencial de toda la información del negocio. · <strong>Propiedad:</strong> los entregables se transfieren al cliente al término de cada fase, cubierto el pago correspondiente. · Propuesta válida hasta el 30 de julio de 2026.
+  </div>
+</section>
+
+<!-- 06 · POR QUÉ AXIONA -->
+<section class="section">
+  <div class="label">06 — Por qué Axiona</div>
+  <h2 class="section-h">El único punto de encuentro entre<br>finanzas y tecnología.</h2>
+  <p class="section-sub">No somos una firma de software. No somos una consultora tradicional. Somos el puente que la mayoría de las empresas nunca ha tenido.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border);border-radius:20px;overflow:hidden;margin-top:40px">
+    <div style="background:var(--s1);padding:36px">
+      <div style="font-size:36px;margin-bottom:16px">🧠</div>
+      <div style="font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px">Visión financiera</div>
+      <div style="font-size:13px;color:var(--ts);line-height:1.75">Economistas y analistas con visión de P&amp;L que entienden el impacto de cada decisión analítica en los resultados del negocio.</div>
+    </div>
+    <div style="background:var(--s1);padding:36px;border-left:1px solid var(--border);border-right:1px solid var(--border)">
+      <div style="font-size:36px;margin-bottom:16px">⚡</div>
+      <div style="font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px">Ejecución técnica</div>
+      <div style="font-size:13px;color:var(--ts);line-height:1.75">Data Scientists e Ingenieros que construyen soluciones que funcionan en producción, no demos que se muestran una vez y se archivan.</div>
+    </div>
+    <div style="background:var(--s1);padding:36px">
+      <div style="font-size:36px;margin-bottom:16px">🔄</div>
+      <div style="font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px">Servicio continuo</div>
+      <div style="font-size:13px;color:var(--ts);line-height:1.75">Operamos la analítica como una función interna de tu empresa. Evolucionamos, mejoramos y crecemos contigo. Sin fin de proyecto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · PRÓXIMOS PASOS -->
+<section class="section-last">
+  <div class="label">07 — Próximos pasos</div>
+  <h2 class="section-h">De la propuesta<br>al primer resultado.</h2>
+  <p class="section-sub">El proceso de aprobación es simple. Sin burocracia. En menos de una semana podemos estar en marcha.</p>
+
+  <div class="next-steps">
+    <div class="ns-item">
+      <div class="ns-num">01</div>
+      <div>
+        <div class="ns-title">Revisión y aprobación de la propuesta</div>
+        <div class="ns-desc">Revisas este documento. Resolvemos cualquier duda en una llamada de máximo 30 min. Sin presión, sin vendedores. El diagnóstico ya está hecho — ahora decidimos si avanzamos.</div>
+        <div class="ns-date">Fecha sugerida: julio de 2026</div>
+      </div>
+    </div>
+    <div class="ns-item">
+      <div class="ns-num">02</div>
+      <div>
+        <div class="ns-title">Firma de acuerdo y primer hito</div>
+        <div class="ns-desc">Firmamos el acuerdo de servicio y NDA. Se agenda la sesión de kickoff. Se confirman los accesos a las fuentes de datos necesarias para arrancar la Fase 0.</div>
+        <div class="ns-date">Dentro de 3 días hábiles tras aprobación</div>
+      </div>
+    </div>
+    <div class="ns-item">
+      <div class="ns-num">03</div>
+      <div>
+        <div class="ns-title">Kickoff de la Fase 0 — primer entregable en 2 semanas</div>
+        <div class="ns-desc">Arrancamos el levantamiento y diagnóstico. En 2 semanas tienes el mapa de procesos, la base limpia y los quick-wins identificados. Axiona no espera 3 meses para entregar valor.</div>
+        <div class="ns-date">Semana 1 del proyecto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /doc -->
+
+<!-- CLOSING CTA -->
+<div class="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-tag"><span class="closing-dot"></span>Propuesta vigente hasta el 30 de julio de 2026</div>
+  <h2 class="closing-h">¿<em>Empezamos</em>?</h2>
+  <p class="closing-sub">Una conversación de 30 minutos es todo lo que separa a Daniel de su primer resultado con Axiona.</p>
+  <a href="mailto:ventas@axiona-tech.com?subject=Aprobación propuesta Daniel Delgado — AX-2026-002" class="btn-close">Aprobar propuesta →</a>
+  <div class="closing-contact">ventas@axiona-tech.com · axiona-tech.com</div>
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <div>
+    <div class="df-logo">Axiona <em>·</em> AI &amp; Analytics</div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--tm);margin-top:4px">Colombia &amp; United States · 2026</div>
+  </div>
+  <div class="df-meta">
+    <div>Propuesta para Daniel Delgado</div>
+    <div>Ref: AX-2026-002 · Julio de 2026</div>
+  </div>
+  <div class="df-conf">
+    <div>CONFIDENCIAL — Solo para el destinatario</div>
+    <div>© 2026 Axiona. Todos los derechos reservados.</div>
+  </div>
+</div>
+
+</body>
+</html>
